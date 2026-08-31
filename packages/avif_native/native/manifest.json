@@ -1,0 +1,10 @@
+{
+  "nativeVersion": "0.1.0-dev",
+  "artifacts": {
+    "macos-arm64-full-aom-aom": {
+      "path": "artifacts/macos-arm64/full-aom-aom/libavif_native.dylib",
+      "librarySha256": "eafc79db4403c8b42ea64a9697fa62dd82cbbde536277100f7f6de2697f0714f",
+      "fileName": "libavif_native.dylib"
+    }
+  }
+}

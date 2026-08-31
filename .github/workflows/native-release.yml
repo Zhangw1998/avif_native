@@ -1,0 +1,126 @@
+name: Native release
+
+on:
+  push:
+    tags: ["native-v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Native release version, without native-v
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-unix:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { target: macos-arm64, runner: macos-14 }
+          - { target: macos-x64, runner: macos-14 }
+          - { target: ios-device-arm64, runner: macos-14 }
+          - { target: ios-simulator-arm64, runner: macos-14 }
+          - { target: ios-simulator-x64, runner: macos-14 }
+          - { target: android-arm64, runner: ubuntu-24.04 }
+          - { target: android-arm, runner: ubuntu-24.04 }
+          - { target: android-x64, runner: ubuntu-24.04 }
+          - { target: linux-x64, runner: ubuntu-24.04 }
+          - { target: linux-arm64, runner: ubuntu-24.04-arm }
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install macOS build tools
+        if: runner.os == 'macOS'
+        run: brew install meson nasm ninja
+
+      - name: Install Linux build tools
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake meson nasm ninja-build
+
+      - uses: actions/cache@v4
+        with:
+          path: .native-cache
+          key: native-${{ matrix.target }}-${{ hashFiles('packages/avif_native/native/versions.json') }}
+
+      - name: Build profiles
+        run: |
+          for profile in decode-dav1d encode-aom full-aom-aom full-dav1d-aom; do
+            packages/avif_native/tool/native/build_unix.sh \
+              "${{ matrix.target }}" "$profile"
+          done
+
+      - name: Reject unexpected dynamic dependencies
+        run: |
+          for library in dist/${{ matrix.target }}/*/libavif_native.*; do
+            case "$library" in
+              *.gz) continue ;;
+              *.dylib)
+                ! otool -L "$library" | grep -E '/opt/homebrew|/usr/local|\.native-cache'
+                ;;
+              *.so)
+                readelf -d "$library" 2>/dev/null || \
+                  "${ANDROID_NDK_HOME:-$ANDROID_NDK_LATEST_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-readelf" -d "$library"
+                ;;
+            esac
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.target }}
+          path: dist/${{ matrix.target }}
+          if-no-files-found: error
+
+  build-windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+      - run: choco install ninja nasm -y
+      - run: pip install meson
+      - uses: actions/cache@v4
+        with:
+          path: .native-cache
+          key: native-windows-x64-${{ hashFiles('packages/avif_native/native/versions.json') }}
+      - name: Build profiles
+        shell: pwsh
+        run: |
+          foreach ($profile in @('decode-dav1d', 'encode-aom', 'full-aom-aom', 'full-dav1d-aom')) {
+            packages/avif_native/tool/native/build_windows.ps1 windows-x64 $profile
+          }
+      - name: List dependencies
+        shell: pwsh
+        run: |
+          Get-ChildItem dist/windows-x64 -Recurse -Filter avif_native.dll |
+            ForEach-Object { dumpbin /DEPENDENTS $_.FullName }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-windows-x64
+          path: dist/windows-x64
+          if-no-files-found: error
+
+  release:
+    needs: [build-unix, build-windows]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+      - name: Build release manifest
+        id: version
+        shell: bash
+        run: |
+          version='${{ inputs.version }}'
+          [[ -n "$version" ]] || version="${GITHUB_REF_NAME#native-v}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          python3 tool/generate_manifest.py \
+            "$version" "$GITHUB_REPOSITORY" dist
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: native-v${{ steps.version.outputs.version }}
+          files: release/*

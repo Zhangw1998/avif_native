@@ -1,0 +1,6 @@
+.DS_Store
+.dart_tool/
+.native-cache/
+build/
+dist/
+release/

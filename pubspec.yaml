@@ -1,0 +1,9 @@
+name: avif_native_workspace
+publish_to: none
+
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+
+workspace:
+  - packages/avif_native
+  - packages/flutter_avif_native
