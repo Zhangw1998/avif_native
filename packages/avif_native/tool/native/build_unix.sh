@@ -49,6 +49,22 @@ checkout dav1d
 rm -rf "$sources/libavif/ext/aom" "$sources/libavif/ext/dav1d"
 ln -s "$sources/libaom" "$sources/libavif/ext/aom"
 ln -s "$sources/dav1d" "$sources/libavif/ext/dav1d"
+python3 - "$sources/libavif/cmake/Modules/LocalDav1d.cmake" <<'PY'
+from pathlib import Path
+import sys
+path = Path(sys.argv[1])
+text = path.read_text()
+marker = "if(AVIF_NATIVE_DAV1D_CROSS_FILE)"
+if marker not in text:
+    text = text.replace(
+        "    if(CROSS_FILE)\n        set(EXTRA_ARGS",
+        "    if(AVIF_NATIVE_DAV1D_CROSS_FILE)\n"
+        "        set(CROSS_FILE \"${AVIF_NATIVE_DAV1D_CROSS_FILE}\")\n"
+        "    endif()\n\n"
+        "    if(CROSS_FILE)\n        set(EXTRA_ARGS",
+    )
+    path.write_text(text)
+PY
 
 cmake_args=(
   -S "$root/native"
@@ -83,18 +99,18 @@ endian = 'little'
 c_args = ['-arch', '$arch', '-isysroot', '$sdk_path', '$minimum']
 c_link_args = ['-arch', '$arch', '-isysroot', '$sdk_path', '$minimum']
 EOF
-  cmake_args+=( -DCROSS_FILE="$cross_file" )
+  cmake_args+=( -DAVIF_NATIVE_DAV1D_CROSS_FILE="$cross_file" )
 }
 
 ext=
 case "$target" in
   macos-arm64)
-    set_apple_cross_file macos darwin aarch64 arm64 -mmacosx-version-min=12.0
+    set_apple_cross_file macosx darwin aarch64 arm64 -mmacosx-version-min=12.0
     cmake_args+=( -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 )
     ext=dylib
     ;;
   macos-x64)
-    set_apple_cross_file macos darwin x86_64 x86_64 -mmacosx-version-min=12.0
+    set_apple_cross_file macosx darwin x86_64 x86_64 -mmacosx-version-min=12.0
     cmake_args+=( -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 )
     ext=dylib
     ;;
