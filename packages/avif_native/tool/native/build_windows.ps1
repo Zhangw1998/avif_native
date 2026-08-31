@@ -36,9 +36,9 @@ New-Item -ItemType Junction -Path "$Sources/libavif/ext/dav1d" -Target "$Sources
 
 Remove-Item -Recurse -Force $Build -ErrorAction SilentlyContinue
 cmake -S "$Root/native" -B $Build -A x64 `
-  -DCMAKE_BUILD_TYPE=MinSizeRel `
-  -DLIBAVIF_SOURCE_DIR="$Sources/libavif" `
-  -DAVIF_PROFILE=$Profile
+  "-DCMAKE_BUILD_TYPE=MinSizeRel" `
+  "-DLIBAVIF_SOURCE_DIR=$Sources/libavif" `
+  "-DAVIF_PROFILE=$Profile"
 cmake --build $Build --config MinSizeRel --target avif_native --parallel
 
 $Library = Get-ChildItem $Build -Recurse -Filter avif_native.dll | Select-Object -First 1

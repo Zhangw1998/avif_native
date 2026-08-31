@@ -58,26 +58,59 @@ cmake_args=(
   -DLIBAVIF_SOURCE_DIR="$sources/libavif"
   -DAVIF_PROFILE="$profile"
 )
+
+set_apple_cross_file() {
+  local sdk=$1 system=$2 cpu=$3 arch=$4 minimum=$5
+  local sdk_path cross_file
+  sdk_path=$(xcrun --sdk "$sdk" --show-sdk-path)
+  cross_file="$cache/cross/$target.meson"
+  mkdir -p "$(dirname "$cross_file")"
+  cat > "$cross_file" <<EOF
+[binaries]
+c = ['clang']
+cpp = ['clang++']
+ar = ['ar']
+strip = ['strip']
+pkg-config = ['pkg-config']
+
+[host_machine]
+system = '$system'
+cpu_family = '$cpu'
+cpu = '$cpu'
+endian = 'little'
+
+[built-in options]
+c_args = ['-arch', '$arch', '-isysroot', '$sdk_path', '$minimum']
+c_link_args = ['-arch', '$arch', '-isysroot', '$sdk_path', '$minimum']
+EOF
+  cmake_args+=( -DCROSS_FILE="$cross_file" )
+}
+
 ext=
 case "$target" in
   macos-arm64)
-    cmake_args+=( -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 )
+    set_apple_cross_file macos darwin aarch64 arm64 -mmacosx-version-min=12.0
+    cmake_args+=( -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 )
     ext=dylib
     ;;
   macos-x64)
-    cmake_args+=( -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 )
+    set_apple_cross_file macos darwin x86_64 x86_64 -mmacosx-version-min=12.0
+    cmake_args+=( -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 )
     ext=dylib
     ;;
   ios-device-arm64)
-    cmake_args+=( -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=13.0 )
+    set_apple_cross_file iphoneos ios aarch64 arm64 -miphoneos-version-min=13.0
+    cmake_args+=( -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=13.0 )
     ext=dylib
     ;;
   ios-simulator-arm64)
-    cmake_args+=( -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphonesimulator -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=13.0 )
+    set_apple_cross_file iphonesimulator ios aarch64 arm64 -mios-simulator-version-min=13.0
+    cmake_args+=( -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphonesimulator -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=13.0 )
     ext=dylib
     ;;
   ios-simulator-x64)
-    cmake_args+=( -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DCMAKE_OSX_SYSROOT=iphonesimulator -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=13.0 )
+    set_apple_cross_file iphonesimulator ios x86_64 x86_64 -mios-simulator-version-min=13.0
+    cmake_args+=( -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphonesimulator -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=13.0 )
     ext=dylib
     ;;
   android-arm64|android-arm|android-x64)
