@@ -1,0 +1,50 @@
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - avif_native-v*
+      - flutter_avif_native-v*
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Select package
+        id: package
+        shell: bash
+        run: |
+          case "$GITHUB_REF_NAME" in
+            avif_native-v*) package=avif_native ;;
+            flutter_avif_native-v*) package=flutter_avif_native ;;
+            *) exit 64 ;;
+          esac
+          tag_version=${GITHUB_REF_NAME#${package}-v}
+          pub_version=$(awk '/^version:/{print $2; exit}' "packages/$package/pubspec.yaml")
+          [[ "$tag_version" == "$pub_version" ]] || {
+            echo "Tag version $tag_version does not match $package $pub_version" >&2
+            exit 1
+          }
+          echo "name=$package" >> "$GITHUB_OUTPUT"
+
+      - run: dart pub get
+      - name: Test package
+        shell: bash
+        run: |
+          if [[ '${{ steps.package.outputs.name }}' == avif_native ]]; then
+            (cd packages/avif_native && dart test)
+          else
+            (cd packages/flutter_avif_native && flutter test)
+          fi
+      - name: Publish
+        run: tool/publish_package.sh '${{ steps.package.outputs.name }}' --force

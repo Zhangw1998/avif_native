@@ -1,10 +1,269 @@
 {
-  "nativeVersion": "0.1.0-dev",
+  "nativeVersion": "0.1.0",
   "artifacts": {
-    "macos-arm64-full-aom-aom": {
-      "path": "artifacts/macos-arm64/full-aom-aom/libavif_native.dylib",
-      "librarySha256": "eafc79db4403c8b42ea64a9697fa62dd82cbbde536277100f7f6de2697f0714f",
+    "android-arm-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-arm-decode-dav1d-libavif_native.so.gz",
+      "archiveSha256": "a135400f3f15695f28c4f14f54a31b67e979b4f1e66350ff67a8037c427bb3ad",
+      "librarySha256": "fb9b762228bb6413890d1921ba81bb9f129d7b2ee48d19ef5ee98c0dae537055",
+      "fileName": "libavif_native.so"
+    },
+    "android-arm-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-arm-encode-aom-libavif_native.so.gz",
+      "archiveSha256": "2b539822455719e6ad48daacae724e5cbc1e1c73aa51ef55324af989d40629e9",
+      "librarySha256": "31982b423e6520d42f0661c9d0057f507aced930999bf4bb3021a5900d1aabd6",
+      "fileName": "libavif_native.so"
+    },
+    "android-arm-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-arm-full-aom-aom-libavif_native.so.gz",
+      "archiveSha256": "0e8f5acdb8462cd68bc273a8ae0b6cb91fa79cc1301ed34c33093a5033b1038c",
+      "librarySha256": "cace87d99ee2b50278ed582986e5400ef174cfaf3ca19154d2de176e418aeaeb",
+      "fileName": "libavif_native.so"
+    },
+    "android-arm-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-arm-full-dav1d-aom-libavif_native.so.gz",
+      "archiveSha256": "bdf2582567b2b57bc3c55c4b3f42184fbff838fdd0a982535480b34e534d52aa",
+      "librarySha256": "a4f65020cdd22a6a94988c69795392b4eb405407f8d07b451074305fd1efaa23",
+      "fileName": "libavif_native.so"
+    },
+    "android-arm64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-arm64-decode-dav1d-libavif_native.so.gz",
+      "archiveSha256": "effdf866f58311762bda04377a13a9db8cbe1d78422f5ec858b03228a2640070",
+      "librarySha256": "ae670c99c41c041369593638d49dbfc6327883e4498640edfaf6a69af7b62fad",
+      "fileName": "libavif_native.so"
+    },
+    "android-arm64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-arm64-encode-aom-libavif_native.so.gz",
+      "archiveSha256": "7d6cff16b9e3c2f11b76612dc73d9c5c9eea4710e7b7df1f1ef3e43a4e458ce8",
+      "librarySha256": "9972d8438eb48b2361b0080503fc3e81d2dd52fcfa482567b5ee76be5e29749c",
+      "fileName": "libavif_native.so"
+    },
+    "android-arm64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-arm64-full-aom-aom-libavif_native.so.gz",
+      "archiveSha256": "67a2323f2a88213b8bc684a81847ea24c7b1a5007499b4f47270f3b4e8c9c23d",
+      "librarySha256": "881fa429eec563138df600fd19d05b1fce1e71dcdd301a86b7230d5ee3773d4b",
+      "fileName": "libavif_native.so"
+    },
+    "android-arm64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-arm64-full-dav1d-aom-libavif_native.so.gz",
+      "archiveSha256": "a002d11d28bb5edd19d947840e4f5b201ab24eea6807c61f0cc4dc4d54e0d372",
+      "librarySha256": "3d4a9262c7110d00107562599733bb441806fd2ed4bbc591c151b8f1f37abb90",
+      "fileName": "libavif_native.so"
+    },
+    "android-x64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-x64-decode-dav1d-libavif_native.so.gz",
+      "archiveSha256": "c356ef565f8bef51a6242baf0b439cdd780ab4ecf82b9da974793df475a52d92",
+      "librarySha256": "e7984cef2d4eeacefa60eac3090d0c75da9fd42cc6be51202dd513b2a5fe401d",
+      "fileName": "libavif_native.so"
+    },
+    "android-x64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-x64-encode-aom-libavif_native.so.gz",
+      "archiveSha256": "048100f60b5bffd8f5f2bfa46cb1b616bb3f55642943557c4c2b765a0991264a",
+      "librarySha256": "2830fb658838ea3611bf9f7ec91664b418abfff1b803c24e6127c482701957f3",
+      "fileName": "libavif_native.so"
+    },
+    "android-x64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-x64-full-aom-aom-libavif_native.so.gz",
+      "archiveSha256": "2e3433590d691c120b3a95dbe542706407521af909be133c43a460c5e7627f6d",
+      "librarySha256": "9f9202e1e8e99c46c039a76632eaaadcf9192828bd553b64125e26ec3050ae9a",
+      "fileName": "libavif_native.so"
+    },
+    "android-x64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/android-x64-full-dav1d-aom-libavif_native.so.gz",
+      "archiveSha256": "e6b9374ffd4ac38439bcb0288e811cf750274e2b306f9e0552e5c90a54ac3549",
+      "librarySha256": "73179f1e236f529aaa5c7ca2cdf632111c8913021f5b77634dcf51f0a06e625d",
+      "fileName": "libavif_native.so"
+    },
+    "ios-device-arm64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-device-arm64-decode-dav1d-libavif_native.dylib.gz",
+      "archiveSha256": "2de1de777ce394fb9bb5f33bb71ba07924efb8cf9ec8175b35101cc0103308ef",
+      "librarySha256": "e680a265e67312c25dda7ec2d2c842775b8a066e24be51763fd27acd5beb6337",
       "fileName": "libavif_native.dylib"
+    },
+    "ios-device-arm64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-device-arm64-encode-aom-libavif_native.dylib.gz",
+      "archiveSha256": "0376d632bf6021ad3efef47002079b818589df3a553679bc3ff59be74b174b5b",
+      "librarySha256": "64acd8e00b82cd23a0e1591edbece7a2cc88a12401b7a306f9b7a10eb6818192",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-device-arm64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-device-arm64-full-aom-aom-libavif_native.dylib.gz",
+      "archiveSha256": "7933e902b2f1cb48e9f6a28f9b1bc0805813f1f29a8f918d1ee79a1ad21cd504",
+      "librarySha256": "e7d99fc883860c9a23ba09d761142507ade23cf37c9011466fee93e82ef6732a",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-device-arm64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-device-arm64-full-dav1d-aom-libavif_native.dylib.gz",
+      "archiveSha256": "0df4dfedd3bae62111b972801c095e7c872cf0c1ff5d4e070908ce0d3aaa9e80",
+      "librarySha256": "2eb28968998a2e987f1e9c396b367c6aaaeb4f6c821c3874bfbbf19d5eb138d7",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-simulator-arm64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-simulator-arm64-decode-dav1d-libavif_native.dylib.gz",
+      "archiveSha256": "f224d680f49ccedc9ecc5055ea3cc304c17cb967c56fbe906d8a4cbdd92a2670",
+      "librarySha256": "4f9eccb996dbe42cc99bf9c8c803a794f395237c8351b5ce73d2fd3ec6a88f01",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-simulator-arm64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-simulator-arm64-encode-aom-libavif_native.dylib.gz",
+      "archiveSha256": "1b36a7a31d827315ff239be440e03b2e5dd80f4d49daa43f745d1ec8741f4984",
+      "librarySha256": "8770a9a1c7a5b7aa4aa207f8dcd130980f0905b9f438573df377c7cb9d2596cc",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-simulator-arm64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-simulator-arm64-full-aom-aom-libavif_native.dylib.gz",
+      "archiveSha256": "4fd7ee0524e7683c82a7931b460b6b4f903257e3e0e7ee606a418bdbf45b6cae",
+      "librarySha256": "53ccf40e6231d0133bdca9ff7b930548928a56cc44981e790791f282613c111f",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-simulator-arm64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-simulator-arm64-full-dav1d-aom-libavif_native.dylib.gz",
+      "archiveSha256": "eb02c0b440ebe9ee2317cc352f77b7c5382aa95163d7e7a30165680974ebc056",
+      "librarySha256": "8014f0edcdb3f4fedd1a7449fd5fbd9b14b65221956bca5b1d6039e2a91ad4dc",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-simulator-x64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-simulator-x64-decode-dav1d-libavif_native.dylib.gz",
+      "archiveSha256": "ceb7a30e7465d39984121bba4e1832094b4412b9d16af913c70d7c9e1e696d72",
+      "librarySha256": "90cd322bbdc11e79b41c2bb415ac1449f58219bff5aef01d04b6b742a9ebdd1c",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-simulator-x64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-simulator-x64-encode-aom-libavif_native.dylib.gz",
+      "archiveSha256": "61256569283f05c6f526abde437f1a553335eccc896af0aa24cc9a4e181761e8",
+      "librarySha256": "9749fd216002390613d616871c1350093da2d74dc0564fc464fac6ad873865bb",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-simulator-x64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-simulator-x64-full-aom-aom-libavif_native.dylib.gz",
+      "archiveSha256": "fa98e321efc6258f1c3ce42405cc74d7a0d0c61fd003d318e41c1dbdac8fa60d",
+      "librarySha256": "a5f6e46458e52d30f63a44f3ae23b0699f1b88155c711182b5db3851083396b0",
+      "fileName": "libavif_native.dylib"
+    },
+    "ios-simulator-x64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/ios-simulator-x64-full-dav1d-aom-libavif_native.dylib.gz",
+      "archiveSha256": "98ea5e5193c2beb4faac8d9e57112f241fe7f6c5c4b6fbd68ce342a9898def6e",
+      "librarySha256": "c9f6c21da0b8ed285620dca19f7e26e87124855370872f57efb9d9286f60c08b",
+      "fileName": "libavif_native.dylib"
+    },
+    "linux-arm64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/linux-arm64-decode-dav1d-libavif_native.so.gz",
+      "archiveSha256": "cdcf17cfd18b9b0f965b72615ddf11246121114577dc570d0bba25964e56c726",
+      "librarySha256": "98a1d69d319ef97351bc230c91e0a37a8026ca88b5f40bcae7f0c07eafa4cc39",
+      "fileName": "libavif_native.so"
+    },
+    "linux-arm64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/linux-arm64-encode-aom-libavif_native.so.gz",
+      "archiveSha256": "731ed9e1623c6dc34b60a582efc2eba701c34671d42c96d8290c89773098a2e9",
+      "librarySha256": "bb0f849e47b111e71b40f1b57837483882e26fd52f8ea57363904b2ea706ac38",
+      "fileName": "libavif_native.so"
+    },
+    "linux-arm64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/linux-arm64-full-aom-aom-libavif_native.so.gz",
+      "archiveSha256": "fb254714b494b64c8763eeb168088bb250bcb9291c37dc4ab51cba35c3bd81bc",
+      "librarySha256": "7c6053e41fb8f1b5d08c2a5715418ea656e4c7087bae422d98b341437b1eae14",
+      "fileName": "libavif_native.so"
+    },
+    "linux-arm64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/linux-arm64-full-dav1d-aom-libavif_native.so.gz",
+      "archiveSha256": "2b2d3acf79a8728b3027849b2f0d860d045efab6823901e97a7b1345c847dd43",
+      "librarySha256": "d50d108a0b077c8c76f50a77e0c46f3eed492431459ee70d03b1ccc51b1e1308",
+      "fileName": "libavif_native.so"
+    },
+    "linux-x64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/linux-x64-decode-dav1d-libavif_native.so.gz",
+      "archiveSha256": "252b064f8ff4f0f265bc44294d4a7ed703dd7199688942c272dd8aa8d3039d5a",
+      "librarySha256": "c49efaaffe2e51054a4d5ef15f3eb068e8f511ed091fb01068c2686273664e5e",
+      "fileName": "libavif_native.so"
+    },
+    "linux-x64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/linux-x64-encode-aom-libavif_native.so.gz",
+      "archiveSha256": "cc7f1e5f066d09cc7cabd85a286dac93031357ee1da4d80ab544c55f129ace19",
+      "librarySha256": "e943e3a7b5376a1e7a8132b710876bfb5cabf22d2fe880efd6a6bbbeb86facd2",
+      "fileName": "libavif_native.so"
+    },
+    "linux-x64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/linux-x64-full-aom-aom-libavif_native.so.gz",
+      "archiveSha256": "e2d5648eb4202be97ed4f0ba8a0bc5d7bdde462f7c68796ccf3027c6f4512ca7",
+      "librarySha256": "cf4c2fdac4ad1dfd5ec78effd870d1d44c09e3a2d16ef73ef6c2fec328e7df4f",
+      "fileName": "libavif_native.so"
+    },
+    "linux-x64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/linux-x64-full-dav1d-aom-libavif_native.so.gz",
+      "archiveSha256": "64c2183ef0a3b52aa76881805c934ba50eb27056d8e91c0a28a7c595b4bd6ecb",
+      "librarySha256": "0a586ad9b6a190f9da127c32b247b07f5eea5a06437ea824acd780107cc5e645",
+      "fileName": "libavif_native.so"
+    },
+    "macos-arm64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/macos-arm64-decode-dav1d-libavif_native.dylib.gz",
+      "archiveSha256": "ebf8bf86913ee2b22f0d7c7ca1cc09d7ba0b14b1dcdf6dc01cb2c411466ef710",
+      "librarySha256": "9a185caa7b1e93f264050e1b7b9ba1f968b3c5c9ae088329b41d8a261d9fa659",
+      "fileName": "libavif_native.dylib"
+    },
+    "macos-arm64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/macos-arm64-encode-aom-libavif_native.dylib.gz",
+      "archiveSha256": "9f890034b3ec8e48784636768f914631284615b5e8a757a013aa54ad29f06cc5",
+      "librarySha256": "3dac56b0eacc5a9b94c59ec5f6bce671b78046d54835bec16a09626ab0ef8732",
+      "fileName": "libavif_native.dylib"
+    },
+    "macos-arm64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/macos-arm64-full-aom-aom-libavif_native.dylib.gz",
+      "archiveSha256": "2a501ed7e216f1681dddb8084166d9436fce8ff222de6060bdaf8ebc7afd1c80",
+      "librarySha256": "e03efb9a3aee61945c9d6e84ae40ebb3bbda1286ec0e4b68610c87f568eaaf2d",
+      "fileName": "libavif_native.dylib"
+    },
+    "macos-arm64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/macos-arm64-full-dav1d-aom-libavif_native.dylib.gz",
+      "archiveSha256": "ec20f2989301428d85edf733689c1172da0d53b85b41d1d1e0b52b2c645bd469",
+      "librarySha256": "b9b5589442b8b3bf366244d61e31ce3bf3bbd699a9eded5e7f8b7bb13f309a37",
+      "fileName": "libavif_native.dylib"
+    },
+    "macos-x64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/macos-x64-decode-dav1d-libavif_native.dylib.gz",
+      "archiveSha256": "3b7e61b16fd47e76c910cee71e66fa1e2f131148c2e9def2d157a7552fdb9f71",
+      "librarySha256": "54a55bdd277fa7248842214b8bb127af24e1a1bccef2abb9a1df25061ad27cad",
+      "fileName": "libavif_native.dylib"
+    },
+    "macos-x64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/macos-x64-encode-aom-libavif_native.dylib.gz",
+      "archiveSha256": "367a84d3ea5a3a78c683470dd2a02dba117328e1914fe7d019af32ff07ee6cf2",
+      "librarySha256": "99d00a1599364221a0dbf0438bc77416d27152220a81008b6c1197aaa7f839ff",
+      "fileName": "libavif_native.dylib"
+    },
+    "macos-x64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/macos-x64-full-aom-aom-libavif_native.dylib.gz",
+      "archiveSha256": "10868059c1caff33eec8d24dc6989327dd138008cfe3e5995fcb9339efb1c544",
+      "librarySha256": "ae2d46f50be12932ae1ba828613199fc3f4feee84dba9c2421c3f08292e1b871",
+      "fileName": "libavif_native.dylib"
+    },
+    "macos-x64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/macos-x64-full-dav1d-aom-libavif_native.dylib.gz",
+      "archiveSha256": "d2482479660318334fa7d009635664a0dd0b348976657dbdc870f2caae20d433",
+      "librarySha256": "12d40defdcb0767b4dd178632e6ce125f4cdae656634e2097160d50a1216ea15",
+      "fileName": "libavif_native.dylib"
+    },
+    "windows-x64-decode-dav1d": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/windows-x64-decode-dav1d-avif_native.dll.gz",
+      "archiveSha256": "016f97ecd810ad4cc3f4b9f824acab03c45382da4bb0f1a0a715ba71a78242cd",
+      "librarySha256": "50d174fe1afb5a66cc97e7ed36eee7f5bc892e9d2a8b3e346adb83ad8b0465ac",
+      "fileName": "avif_native.dll"
+    },
+    "windows-x64-encode-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/windows-x64-encode-aom-avif_native.dll.gz",
+      "archiveSha256": "b6b8fd391705f9f25542f0cf77254c82e49209fd1ebff3b3067343f7fec3eb45",
+      "librarySha256": "bb15744e2050fe6674bd0dfca47f9839f70e2a2cccb6756f601a910b47ad0fa9",
+      "fileName": "avif_native.dll"
+    },
+    "windows-x64-full-aom-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/windows-x64-full-aom-aom-avif_native.dll.gz",
+      "archiveSha256": "277e08b1032de8fea10baf20686d6b26663179348892f9d98735e6bf8a2e5fc6",
+      "librarySha256": "5373376a3b4693b2bd9b89d493856a31f6dfccaa23d1d75fac988dd1fb7eb656",
+      "fileName": "avif_native.dll"
+    },
+    "windows-x64-full-dav1d-aom": {
+      "url": "https://github.com/Zhangw1998/avif_native/releases/download/native-v0.1.0/windows-x64-full-dav1d-aom-avif_native.dll.gz",
+      "archiveSha256": "5208b036671932e54ce665d98ea6d6101f39b3f4e552e9e617e453f224233923",
+      "librarySha256": "5c7fbc717d8d2af06426d8ad46c4ae79d4fe7eeb852ade0d159cbd52c6a54e52",
+      "fileName": "avif_native.dll"
     }
   }
 }
