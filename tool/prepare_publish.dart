@@ -52,10 +52,6 @@ void main(List<String> args) {
 
   final pubspec = File(_path(destination.path, 'pubspec.yaml'));
   final original = pubspec.readAsStringSync();
-  final version = RegExp(
-    r'^version:\s*(\S+)\s*$',
-    multiLine: true,
-  ).firstMatch(original)!.group(1)!;
   pubspec.writeAsStringSync(
     original
         .split('\n')
@@ -70,13 +66,11 @@ void main(List<String> args) {
     _path(destination.path, '.pubignore'),
   ).writeAsStringSync('.dart_tool/\nbuild/\npubspec.lock\n');
 
-  if (name == 'avif_native') {
-    _verifyManifest(destination, version);
-  }
+  if (name == 'avif_native') _verifyManifest(destination);
   stdout.writeln(destination.path);
 }
 
-void _verifyManifest(Directory package, String version) {
+void _verifyManifest(Directory package) {
   final manifest =
       jsonDecode(
             File(
@@ -84,8 +78,9 @@ void _verifyManifest(Directory package, String version) {
             ).readAsStringSync(),
           )
           as Map<String, Object?>;
-  if (manifest['nativeVersion'] != version) {
-    throw StateError('Package and native manifest versions must match');
+  final nativeVersion = manifest['nativeVersion'];
+  if (nativeVersion is! String || nativeVersion.endsWith('-dev')) {
+    throw StateError('Native manifest must reference a formal release');
   }
 
   final artifacts = manifest['artifacts'] as Map<String, Object?>;
