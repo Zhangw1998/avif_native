@@ -26,6 +26,22 @@ full + aom + aom
 full + dav1d + aom
 ```
 
+For the smallest decode- or encode-only build, `features` is enough:
+
+```yaml
+hooks:
+  user_defines:
+    avif_native:
+      features: decode # defaults to dav1d
+```
+
+```yaml
+hooks:
+  user_defines:
+    avif_native:
+      features: encode # defaults to aom
+```
+
 `auto` currently uses the selected full profile. A future link hook can infer used FFI symbols.
 
 All variants export the same ABI. Check `avifNativeCapabilities`, or let unsupported encode/decode calls throw `UnsupportedError` with configuration instructions.

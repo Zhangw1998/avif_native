@@ -9,9 +9,14 @@ Future<void> main(List<String> args) async {
   await build(args, (input, output) async {
     if (!input.config.buildCodeAssets) return;
 
+    final features = _define(input, 'features', 'full');
     final profile = _profile(
-      features: _define(input, 'features', 'full'),
-      decoder: _define(input, 'decoder', 'aom'),
+      features: features,
+      decoder: _define(
+        input,
+        'decoder',
+        features == 'decode' ? 'dav1d' : 'aom',
+      ),
       encoder: _define(input, 'encoder', 'aom'),
     );
     final target = _target(input.config.code);

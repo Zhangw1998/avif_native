@@ -24,4 +24,5 @@ jobs:
           [[ "$GITHUB_REF_NAME" == "v$version" ]]
       - run: dart pub get
       - run: dart test
+      - run: tool/test_profiles.sh
       - run: dart pub publish --force
