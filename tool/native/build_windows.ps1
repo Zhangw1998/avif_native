@@ -6,7 +6,7 @@ $ErrorActionPreference = 'Stop'
 if ($Target -ne 'windows-x64') { throw "Unsupported target: $Target" }
 
 $Root = (Resolve-Path "$PSScriptRoot/../..").Path
-$Repo = (Resolve-Path "$Root/../..").Path
+$Repo = $Root
 $Cache = if ($env:AVIF_NATIVE_CACHE) { $env:AVIF_NATIVE_CACHE } else { "$Repo/.native-cache" }
 $Sources = "$Cache/sources"
 $Build = "$Cache/build/$Target/$Profile"

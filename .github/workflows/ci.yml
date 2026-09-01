@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  dart-and-flutter:
+  test:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
@@ -17,5 +17,4 @@ jobs:
       - run: dart pub get
       - run: dart analyze
       - run: dart format --output=none --set-exit-if-changed .
-      - working-directory: packages/flutter_avif_native
-        run: flutter test
+      - run: dart test

@@ -9,7 +9,7 @@ fi
 target=$1
 profile=$2
 root=$(cd "$(dirname "$0")/../.." && pwd)
-repo=$(cd "$root/../.." && pwd)
+repo=$root
 cache=${AVIF_NATIVE_CACHE:-"$repo/.native-cache"}
 sources="$cache/sources"
 build="$cache/build/$target/$profile"

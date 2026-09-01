@@ -45,13 +45,12 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: .native-cache
-          key: native-${{ matrix.target }}-${{ hashFiles('packages/avif_native/native/versions.json') }}
+          key: native-${{ matrix.target }}-${{ hashFiles('native/versions.json') }}
 
       - name: Build profiles
         run: |
           for profile in decode-dav1d encode-aom full-aom-aom full-dav1d-aom; do
-            packages/avif_native/tool/native/build_unix.sh \
-              "${{ matrix.target }}" "$profile"
+            tool/native/build_unix.sh "${{ matrix.target }}" "$profile"
           done
 
       - name: Reject unexpected dynamic dependencies
@@ -87,12 +86,12 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: .native-cache
-          key: native-windows-x64-${{ hashFiles('packages/avif_native/native/versions.json') }}
+          key: native-windows-x64-${{ hashFiles('native/versions.json') }}
       - name: Build profiles
         shell: pwsh
         run: |
           foreach ($profile in @('decode-dav1d', 'encode-aom', 'full-aom-aom', 'full-dav1d-aom')) {
-            packages/avif_native/tool/native/build_windows.ps1 windows-x64 $profile
+            tool/native/build_windows.ps1 windows-x64 $profile
           }
       - name: List dependencies
         shell: pwsh
