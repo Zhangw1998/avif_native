@@ -34,6 +34,13 @@ Remove-Item -Recurse -Force "$Sources/libavif/ext/aom", "$Sources/libavif/ext/da
 New-Item -ItemType Junction -Path "$Sources/libavif/ext/aom" -Target "$Sources/libaom" | Out-Null
 New-Item -ItemType Junction -Path "$Sources/libavif/ext/dav1d" -Target "$Sources/dav1d" | Out-Null
 
+$Dav1dModule = "$Sources/libavif/cmake/Modules/LocalDav1d.cmake"
+$Dav1dConfig = [IO.File]::ReadAllText($Dav1dModule)
+$Dav1dConfig = $Dav1dConfig.Replace(
+  '-Denable_tests=false ${EXTRA_ARGS} <SOURCE_DIR>',
+  '-Denable_tests=false -Db_vscrt=mt ${EXTRA_ARGS} <SOURCE_DIR>')
+[IO.File]::WriteAllText($Dav1dModule, $Dav1dConfig)
+
 Remove-Item -Recurse -Force $Build -ErrorAction SilentlyContinue
 cmake -S "$Root/native" -B $Build -A x64 `
   "-DCMAKE_BUILD_TYPE=MinSizeRel" `

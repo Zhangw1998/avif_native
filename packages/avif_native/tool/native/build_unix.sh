@@ -111,7 +111,7 @@ case "$target" in
     ;;
   macos-x64)
     set_apple_cross_file macosx darwin x86_64 x86_64 -mmacosx-version-min=12.0
-    cmake_args+=( -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 )
+    cmake_args+=( -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 -DAOM_TARGET_CPU=x86_64 )
     ext=dylib
     ;;
   ios-device-arm64)
