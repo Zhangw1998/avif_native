@@ -32,6 +32,7 @@ AvifNativeCapabilities get avifNativeCapabilities =>
     Pointer<Int32>,
     Pointer<Double>,
     Pointer<Int32>,
+    Int32,
   )
 >(symbol: 'avif_native_decoder_create')
 external int _decoderCreate(
@@ -43,6 +44,7 @@ external int _decoderCreate(
   Pointer<Int32> frameCount,
   Pointer<Double> durationSeconds,
   Pointer<Int32> repetitionCount,
+  int premultiplyAlpha,
 );
 
 @Native<
@@ -138,6 +140,10 @@ external void _encoderDestroy(Pointer<_NativeEncoder> encoder);
 @Native<Void Function(Pointer<Uint8>)>(symbol: 'avif_native_free', isLeaf: true)
 external void _nativeFree(Pointer<Uint8> data);
 
+/// A decoded AVIF frame as tightly packed RGBA bytes.
+///
+/// Alpha is straight (non-premultiplied) unless the decoder was created with
+/// `premultiplyAlpha: true`.
 class AvifFrame {
   final Uint8List rgba;
   final int width;
@@ -168,6 +174,12 @@ class AvifImageData {
   });
 }
 
+/// Decodes an AVIF image frame by frame.
+///
+/// Frames contain straight (non-premultiplied) alpha by default. Renderers
+/// that expect premultiplied pixels, such as Flutter's
+/// `ui.PixelFormat.rgba8888`, should pass `premultiplyAlpha: true` so libavif
+/// multiplies the colour channels by alpha during YUV-to-RGB conversion.
 class AvifDecoder {
   AvifDecoder._(
     this._handle, {
@@ -176,6 +188,7 @@ class AvifDecoder {
     required this.frameCount,
     required this.duration,
     required this.repetitionCount,
+    required this.premultiplyAlpha,
   });
 
   final Pointer<_NativeDecoder> _handle;
@@ -184,10 +197,13 @@ class AvifDecoder {
   final int frameCount;
   final Duration duration;
   final int repetitionCount;
+
+  /// Whether decoded frames have premultiplied alpha.
+  final bool premultiplyAlpha;
   int _frameIndex = 0;
   bool _disposed = false;
 
-  factory AvifDecoder(Uint8List bytes) {
+  factory AvifDecoder(Uint8List bytes, {bool premultiplyAlpha = false}) {
     if (!avifNativeCapabilities.canDecode) {
       throw UnsupportedError(
         'AVIF decoding is not included in this build. Configure avif_native '
@@ -215,6 +231,7 @@ class AvifDecoder {
         frameCount,
         duration,
         repetitionCount,
+        premultiplyAlpha ? 1 : 0,
       );
       if (result != 0) throw AvifDecodeException(_message(result));
       if (decoder.value == nullptr ||
@@ -231,6 +248,7 @@ class AvifDecoder {
         frameCount: frameCount.value,
         duration: _duration(duration.value),
         repetitionCount: repetitionCount.value,
+        premultiplyAlpha: premultiplyAlpha,
       );
     } finally {
       calloc.free(data);
@@ -295,8 +313,12 @@ class AvifDecoder {
   }
 }
 
-AvifImageData decodeAvif(Uint8List bytes) {
-  final decoder = AvifDecoder(bytes);
+/// Decodes every frame of an AVIF image.
+///
+/// Frames contain straight (non-premultiplied) alpha unless
+/// [premultiplyAlpha] is true. See [AvifDecoder] for details.
+AvifImageData decodeAvif(Uint8List bytes, {bool premultiplyAlpha = false}) {
+  final decoder = AvifDecoder(bytes, premultiplyAlpha: premultiplyAlpha);
   try {
     final frames = [
       for (var i = 0; i < decoder.frameCount; ++i) decoder.getNextFrame(),
@@ -313,6 +335,10 @@ AvifImageData decodeAvif(Uint8List bytes) {
   }
 }
 
+/// One frame to encode.
+///
+/// [rgba] must be straight (non-premultiplied) RGBA, matching the default
+/// output of [decodeAvif].
 class AvifEncodeFrame {
   final Uint8List rgba;
   final Duration duration;
