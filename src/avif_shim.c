@@ -27,6 +27,7 @@ AVIF_NATIVE_API uint32_t avif_native_capabilities(void) {
 typedef struct {
   avifDecoder* decoder;
   uint8_t* data;
+  int premultiply_alpha;
 } AvifNativeDecoder;
 
 typedef struct {
@@ -53,10 +54,12 @@ static void decoder_free(AvifNativeDecoder* handle) {
 AVIF_NATIVE_API int avif_native_decoder_create(
     const uint8_t* data, size_t size, AvifNativeDecoder** out_decoder,
     int* out_width, int* out_height, int* out_frame_count,
-    double* out_duration_seconds, int* out_repetition_count) {
+    double* out_duration_seconds, int* out_repetition_count,
+    int premultiply_alpha) {
 #if !AVIF_NATIVE_HAS_DECODE
   (void)data; (void)size; (void)out_width; (void)out_height;
   (void)out_frame_count; (void)out_duration_seconds; (void)out_repetition_count;
+  (void)premultiply_alpha;
   if (out_decoder != NULL) *out_decoder = NULL;
   return avif_error(AVIF_RESULT_NOT_IMPLEMENTED);
 #else
@@ -69,6 +72,7 @@ AVIF_NATIVE_API int avif_native_decoder_create(
 
   AvifNativeDecoder* handle = calloc(1, sizeof(AvifNativeDecoder));
   if (handle == NULL) return avif_error(AVIF_RESULT_OUT_OF_MEMORY);
+  handle->premultiply_alpha = premultiply_alpha != 0;
   handle->data = malloc(size);
   handle->decoder = avifDecoderCreate();
   if (handle->data == NULL || handle->decoder == NULL) {
@@ -115,6 +119,7 @@ AVIF_NATIVE_API int avif_native_decoder_next(
   avifRGBImageSetDefaults(&rgb, handle->decoder->image);
   rgb.format = AVIF_RGB_FORMAT_RGBA;
   rgb.depth = 8;
+  rgb.alphaPremultiplied = handle->premultiply_alpha ? AVIF_TRUE : AVIF_FALSE;
   result = avifRGBImageAllocatePixels(&rgb);
   if (result != AVIF_RESULT_OK) return avif_error(result);
 

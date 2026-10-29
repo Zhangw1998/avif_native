@@ -68,4 +68,15 @@ void main() {
 
 Supports still and animated AVIF, alpha, EXIF bytes, quantizers, codec speed, threads, timescale, and repetition count.
 
+Decoded frames are straight (non-premultiplied) RGBA by default. Pass
+`premultiplyAlpha: true` when handing pixels to a renderer that expects
+premultiplied alpha, such as Flutter's `ui.PixelFormat.rgba8888`:
+
+```dart
+final image = decodeAvif(bytes, premultiplyAlpha: true);
+```
+
+`encodeAvifFrames` expects straight RGBA, so do not feed premultiplied frames
+back into the encoder.
+
 Native sources are pinned in `native/versions.json`; third-party licenses are in `LICENSES/`.
