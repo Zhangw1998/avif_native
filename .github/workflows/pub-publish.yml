@@ -11,12 +11,25 @@ permissions:
 jobs:
   publish:
     runs-on: macos-14
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
+      # Exchange the GitHub OIDC token for pub.dev credentials. Without this
+      # `dart pub publish` falls back to the interactive OAuth flow and waits
+      # for authorization forever on a CI runner.
+      - name: Authenticate to pub.dev
+        shell: bash
+        run: |
+          token=$(curl -sSf \
+            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://pub.dev" |
+            jq -r .value)
+          test -n "$token"
+          echo "$token" | dart pub token add https://pub.dev
       - name: Verify version
         shell: bash
         run: |
